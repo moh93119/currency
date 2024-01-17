@@ -1,9 +1,14 @@
 using Currency.BusinessLogic.Contract;
 using Currency.BusinessLogic.Implement;
+using Currency.Converter.Api;
+using Currency.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var dbConnection = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(dbConnection));
 
 builder.Services.AddControllers();
 
